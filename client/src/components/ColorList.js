@@ -18,14 +18,11 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
         const updatedArray = colors.map(color => {
-          if (color.id === colorToEdit.id) {
+          if (color.id === res.data.id) {
             return colorToEdit;
           } else {
             return color;
@@ -38,8 +35,16 @@ const ColorList = ({ colors, updateColors }) => {
       .catch(err => console.log("Put request error: ", err));
   };
 
-  const deleteColor = color => {
-    // make a delete request to delete this color
+  const deleteColor = colorId => {
+    setEditing(false);
+    axiosWithAuth()
+      .delete(`/colors/${colorId}`)
+      .then(res => {
+        const filteredArray = colors.filter(color => color.id !== res.data);
+        updateColors(filteredArray);
+      })
+
+      .catch(err => console.log("Delete request error: ", err));
   };
 
   return (
@@ -52,8 +57,9 @@ const ColorList = ({ colors, updateColors }) => {
               <span
                 className="delete"
                 onClick={e => {
+                  e.preventDefault();
                   e.stopPropagation();
-                  deleteColor(color);
+                  deleteColor(color.id);
                 }}
               >
                 x
