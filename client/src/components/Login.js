@@ -61,7 +61,9 @@ const Login = props => {
           </form>
         </>
       )}
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      {error && (
+        <div className="errorMessage">username or password not valid</div>
+      )}
     </div>
   );
 };
