@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -23,12 +22,12 @@ const Login = props => {
       .post("/login", credentials)
       .then(res => {
         localStorage.setItem("token", res.data.payload);
+        setIsLoading(false);
         props.history.push("/dashboard");
-        setIsLoading(false);
       })
-      .catch(res => {
+      .catch(err => {
         setIsLoading(false);
-        setError(res.message);
+        setError(err.message);
       });
   };
 
@@ -41,21 +40,22 @@ const Login = props => {
         </div>
       ) : (
         <>
-          <h3>Login Below</h3>
+          <h3>Login Below:</h3>
           <form className="loginForm" onSubmit={handleSubmit}>
             <input
               onChange={handleChange}
               type="text"
               name="username"
-              value={credentials.username}
               placeholder="username"
+              value={credentials.username}
             />
+
             <input
               onChange={handleChange}
               type="password"
               name="password"
-              value={credentials.password}
               placeholder="password"
+              value={credentials.password}
             />
             <button>Submit</button>
           </form>
