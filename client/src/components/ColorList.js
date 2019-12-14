@@ -48,6 +48,21 @@ const ColorList = ({ colors, updateColors }) => {
       .catch(err => console.log("Delete request error: ", err));
   };
 
+  const saveAddColor = e => {
+    const newColor = {
+      ...addColor,
+      id: colors.length + 1
+    };
+    e.preventDefault();
+    axiosWithAuth()
+      .post("/colors", newColor)
+      .then(res => {
+        updateColors(res.data);
+        setAddColor(initialColor);
+      })
+      .catch(err => console.log("Color post request error: ", err));
+  };
+
   return (
     <div className="colors-wrap">
       <p>colors</p>
@@ -105,7 +120,7 @@ const ColorList = ({ colors, updateColors }) => {
         </form>
       )}
       {/* stretch - build another form here to add a color */}
-      <form onSubmit={saveEdit}>
+      <form onSubmit={saveAddColor}>
         <legend>add color</legend>
         <label>
           color name:
