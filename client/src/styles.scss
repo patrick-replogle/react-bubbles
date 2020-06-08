@@ -97,3 +97,55 @@ form {
     margin-top: 16px;
   }
 }
+
+.login {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background: url("./img/bubble2.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  .loginForm {
+    display: flex;
+    flex-direction: row;
+    margin-top: -10px;
+
+    h3 {
+      margin-bottom: -40px;
+    }
+
+    input {
+      width: 250px;
+      height: 15px;
+      padding: 10px 20px;
+      margin-right: 5px;
+      border-radius: 6px;
+    }
+
+    button {
+      background: #3b5998;
+      color: white;
+      border: 1px solid black;
+      border-radius: 6px;
+      padding: 10px 20px;
+
+      &:hover {
+        color: #3b5998;
+        background: white;
+      }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 10px;
+}
